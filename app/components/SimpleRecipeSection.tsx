@@ -2,8 +2,22 @@
 
 import Image from "next/image";
 
+type RecipeItem = {
+  title: string;
+  image: string;
+  time: string;
+  category: string;
+};
+
+type AdItem = {
+  isAd: boolean;
+  type: string;
+};
+
+type Item = RecipeItem | AdItem;
+
 export default function SimpleRecipesSection() {
-  const recipes = [
+  const recipes: RecipeItem[] = [
     {
       title: "Big and Juicy Wagyu Beef Cheeseburger",
       image: "/wagyu-burger.png",
@@ -54,8 +68,7 @@ export default function SimpleRecipesSection() {
     },
   ];
 
-  // Create array with ad inserted at position 5 (6th card)
-  const allItems = [
+  const allItems: Item[] = [
     ...recipes.slice(0, 5),
     { isAd: true, type: "ad" },
     ...recipes.slice(5),
@@ -63,7 +76,6 @@ export default function SimpleRecipesSection() {
 
   return (
     <div className="max-w-360 mx-auto px-4 sm:px-8 md:px-20 py-8 sm:py-12 md:py-16">
-      {/* Header Section */}
       <div className="text-center mb-8 sm:mb-10 md:mb-12">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-3 sm:mb-4">
           Simple and tasty recipes
@@ -74,11 +86,9 @@ export default function SimpleRecipesSection() {
         </p>
       </div>
 
-      {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-16 md:mt-24">
         {allItems.map((item, index) => {
-          // Check if it's an ad
-          if (item.isAd) {
+          if ("isAd" in item) {
             return (
               <div
                 key={`ad-${index}`}
@@ -91,7 +101,6 @@ export default function SimpleRecipesSection() {
                     fill
                     className="object-contain p-4 sm:p-6 md:p-8"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    priority={false}
                   />
                 </div>
                 <div className="p-4 sm:p-5 md:p-6 flex-1">
@@ -108,7 +117,6 @@ export default function SimpleRecipesSection() {
             );
           }
 
-          // Recipe card
           return (
             <div
               key={index}
@@ -123,7 +131,6 @@ export default function SimpleRecipesSection() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   priority={index < 3}
                 />
-                {/* Like icon */}
                 <div className="absolute top-3 sm:top-4 md:top-6 lg:top-8 right-3 sm:right-4 md:right-6 lg:right-8 z-10">
                   <Image
                     src="/like.png"
@@ -131,7 +138,6 @@ export default function SimpleRecipesSection() {
                     width={24}
                     height={24}
                     className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer hover:scale-110 transition"
-                    priority={false}
                   />
                 </div>
               </div>
@@ -147,7 +153,6 @@ export default function SimpleRecipesSection() {
                       width={18}
                       height={18}
                       className="w-4 h-4 sm:w-[18px] sm:h-[18px]"
-                      priority={false}
                     />
                     <span className="text-xs sm:text-sm text-black/60">
                       {item.time}
@@ -160,7 +165,6 @@ export default function SimpleRecipesSection() {
                       width={18}
                       height={18}
                       className="w-4 h-4 sm:w-[18px] sm:h-[18px]"
-                      priority={false}
                     />
                     <span className="text-xs sm:text-sm text-black/60">
                       {item.category}
