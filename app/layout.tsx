@@ -1,14 +1,10 @@
-// app/layout.js
-import { Inter, Lobster } from "next/font/google";
+import { ReactNode } from "react";
 import "./globals.css";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-const lobster = Lobster({
-  weight: "400",
-  subsets: ["latin"],
-});
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className}>
       <body>{children}</body>
