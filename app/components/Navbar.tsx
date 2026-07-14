@@ -57,7 +57,6 @@ export default function Navbar() {
             width={140}
             height={24}
             className="cursor-pointer hover:opacity-70 transition-opacity"
-            priority
           />
         </div>
 
